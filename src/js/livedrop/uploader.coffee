@@ -1,5 +1,5 @@
 config        = require('./config')
-fbreq         = require('../deps/firebase')
+fbreq         = require('../../deps/firebase')
 # Firebase adds itself to the global scope as Firebase
 
 ref = new Firebase(config.firebase.url).child('messages')

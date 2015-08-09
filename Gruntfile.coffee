@@ -27,9 +27,10 @@ module.exports = (grunt) ->
     browserify: {}
     uglify: {}
 
-  codeFiles = grunt.file.expand {cwd: codePath, matchBase: true}, ['*.coffee']
 
-  for file in codeFiles
+  finalCodeFiles = ['livedrop/livedrop.coffee']
+
+  for file in grunt.file.expand({cwd: codePath, matchBase: true}, finalCodeFiles)
     jsFile = file.replace('.coffee', '.js')
     browserfied = path.join(devPath, codeDir, jsFile)
     fileMaps.browserify[browserfied] = path.join(tempCodePath, jsFile)
