@@ -1,6 +1,6 @@
 crypto     = require('./crypto')
 uploader   = require('./uploader')
-
+$          = require('../../deps/jquery')
 
 main = () ->
   console.log "Starting up..."
@@ -17,12 +17,14 @@ main = () ->
       buffer = reader.result
 
       crypto.encrypt(buffer) \
-        .catch(console.error)
+        .catch (err) ->
+          console.error "Error during encryption:", err
         .then (obj) ->
           console.log "Encryption complete!"
 
           uploader.upload(obj) \
-            .catch(console.error)
+            .catch (err) ->
+              console.error "Error during upload:", err
             .then () ->
               console.log "Uploaded successfully!"
 
