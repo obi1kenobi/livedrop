@@ -2,7 +2,7 @@ config        = require('../common/config')
 
 errorPrinter = (name, reject) ->
   return (err) ->
-    console.error "Error in '#{name}': #{err}"
+    console.error "Error in '#{name}':", err
     reject(err)
 
 getSecureRandomBytes = (count) ->
