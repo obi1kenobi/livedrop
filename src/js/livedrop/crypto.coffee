@@ -1,4 +1,4 @@
-config        = require('./config')
+config        = require('../common/config')
 
 errorPrinter = (name, reject) ->
   return (err) ->

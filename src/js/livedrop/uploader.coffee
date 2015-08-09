@@ -1,8 +1,8 @@
-config        = require('./config')
+config        = require('../common/config')
 fbreq         = require('../../deps/firebase')
 # Firebase adds itself to the global scope as Firebase
 
-ref = new Firebase(config.firebase.url).child('messages')
+ref = new Firebase(config.firebase.url).child(config.firebase.paths.messages)
 
 arrayToBase64 = (arr) ->
   str = ""

@@ -27,6 +27,8 @@ Config =
     authTagLength: 128
   firebase:
     url: 'https://livedrop.firebaseio.com/'
+    paths:
+      messages: 'messages'
 
 
 module.exports = Config
