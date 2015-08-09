@@ -21,3 +21,5 @@ node_modules/*
 
 *.pem
 *.sublime-*
+
+*.privatekey.json

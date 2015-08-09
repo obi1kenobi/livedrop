@@ -1,35 +1,10 @@
+crypto     = require('./crypto')
+
 arrayToBase64 = (arr) ->
   str = ""
   for i in [0...arr.length]
     str += String.fromCharCode(arr[i])
   return window.btoa(str)
-
-encrypt = (buffer, cb) ->
-  type = 'jwk'
-  key =
-    kty: 'RSA'
-    e: 'AQAB'
-    n: 'vGO3eU16ag9zRkJ4AK8ZUZrjbtp5xWK0LyFMNT8933evJoHeczexMUzSiXaLrEFSyQZortk' + \
-       '81zJH3y41MBO_UFDO_X0crAquNrkjZDrf9Scc5-MdxlWU2Jl7Gc4Z18AC9aNibWVmXhgvHY' + \
-       'kEoFdLCFG-2Sq-qIyW4KFkjan05IE'
-    alg: 'RSA-OAEP-256'
-    ext: true
-  options =
-    name: 'RSA-OAEP'
-    hash:
-      name: 'SHA-256'
-  extractable = false
-  actions = ['encrypt']
-  window.crypto.subtle.importKey(type, key, options, extractable, actions) \
-    .catch(cb) \
-    .then (publicKey) ->
-      console.log "Key import successful: #{publicKey}"
-      options =
-        name: 'RSA-OAEP'
-      window.crypto.subtle.encrypt(options, publicKey, buffer) \
-        .catch(cb) \
-        .then (encrypted) ->
-          cb(null, encrypted)
 
 main = () ->
   console.log "Starting up..."
@@ -42,26 +17,24 @@ main = () ->
     reader = new FileReader()
 
     reader.onload = () ->
-      console.log "Read file in: #{reader.result}"
+      console.log "Read file in..."
       buffer = reader.result
 
-      # temporarily override the buffer for test purposes
-      # (RSA can only encrypt values < modulus in size)
-      buffer = new Uint8Array(16)
-      window.crypto.getRandomValues(buffer)
+      crypto.encrypt(buffer) \
+        .catch(console.error)
+        .then (obj) ->
+          console.log "Encryption complete!"
 
-      encrypt buffer, (err, cipherbuffer) ->
-        if err?
-          if err.name?
-            console.error err.name
-          else
-            console.error err
-          throw err
+          {ciphertext, sessionKey, iv, additionalData, tagLength} = obj
+          result =
+            ciphertext: arrayToBase64(new Uint8Array(ciphertext))
+            sessionKey: arrayToBase64(new Uint8Array(sessionKey))
+            iv: arrayToBase64(new Uint8Array(iv))
+          if additionalData?
+            result.additionalData = arrayToBase64(new Uint8Array(additionalData))
+            result.tagLength = tagLength
 
-        console.log "Encryption complete!"
-
-        base64 = arrayToBase64(new Uint8Array(cipherbuffer))
-        console.log base64
+          console.log 'Result:', result
 
     reader.readAsArrayBuffer(file)
 
