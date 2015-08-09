@@ -1,0 +1,31 @@
+{
+  "rules": {
+    "messages": {
+      "$pushid": {
+        ".write": "!data.exists()",
+        ".validate": "newData.hasChildren(['timestamp',
+                                           'iv',
+                                           'additionalData',
+                                           'sessionKey',
+                                           'tagLength',
+                                           'ciphertext'])",
+        "iv": {
+          ".validate": "newData.isString() &&
+                        newData.val().length === 24"
+        },
+        "additionalData": {
+          ".validate": "newData.isString() &&
+                        newData.val().length === 24"
+        },
+        "sessionKey": {
+          ".validate": "newData.isString() &&
+                        newData.val().length === 684"
+        },
+        "tagLength": {
+          ".validate": "newData.isNumber() &&
+                        newData.val() === 128"
+        }
+      }
+    }
+  }
+}
