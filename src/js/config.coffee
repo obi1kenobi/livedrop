@@ -11,6 +11,7 @@ pubkeyJSON = '{"alg":"RSA-OAEP-256","e":"AQAB","ext":true,"key_ops":["encrypt"],
              'DdUDHO97uGQp-HBVjMrvYaM-oCPs7eAF-4YpvonoHkwFCHsDIqr1dKpZo5PFHC5wIT' + \
              'xJAGRORiw5Dhgss9C2vtWe6lKIvfMngCSIlIF-a0"}'
 
+
 Config =
   pubkey:
     type: 'jwk'
@@ -24,6 +25,8 @@ Config =
       name: 'AES-GCM'
       length: 256
     authTagLength: 128
+  firebase:
+    url: 'https://livedrop.firebaseio.com/'
 
 
 module.exports = Config

@@ -1,10 +1,6 @@
 crypto     = require('./crypto')
+uploader   = require('./uploader')
 
-arrayToBase64 = (arr) ->
-  str = ""
-  for i in [0...arr.length]
-    str += String.fromCharCode(arr[i])
-  return window.btoa(str)
 
 main = () ->
   console.log "Starting up..."
@@ -25,16 +21,11 @@ main = () ->
         .then (obj) ->
           console.log "Encryption complete!"
 
-          {ciphertext, sessionKey, iv, additionalData, tagLength} = obj
-          result =
-            ciphertext: arrayToBase64(new Uint8Array(ciphertext))
-            sessionKey: arrayToBase64(new Uint8Array(sessionKey))
-            iv: arrayToBase64(new Uint8Array(iv))
-          if additionalData?
-            result.additionalData = arrayToBase64(new Uint8Array(additionalData))
-            result.tagLength = tagLength
+          uploader.upload(obj) \
+            .catch(console.error)
+            .then () ->
+              console.log "Uploaded successfully!"
 
-          console.log 'Result:', result
 
     reader.readAsArrayBuffer(file)
 
