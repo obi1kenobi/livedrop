@@ -4,6 +4,9 @@ fbreq         = require('../../deps/firebase')
 
 ref = new Firebase(config.firebase.url).child(config.firebase.paths.messages)
 
+###
+Converts the given byte array to a base64 encoded string.
+###
 arrayToBase64 = (arr) ->
   str = ""
   for i in [0...arr.length]
