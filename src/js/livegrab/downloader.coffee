@@ -37,6 +37,16 @@ unpack = (data) ->
 
 handleQueryResult = (snapshot, resolve, reject) ->
   value = snapshot.val()
+
+  if !value?
+    return reject('No more data')
+
+  # remove the Firebase push ID
+  pushids = Object.keys(value)
+  if pushids.length > 1
+    return reject('Unexpectedly found more than one push ID')
+  value = value[pushids[0]]
+
   {timestamp} = value
   crypto.decrypt(unpack(value)) \
     .catch(reject)
@@ -56,7 +66,7 @@ Downloader =
       if beforeTimestamp?
         query = query.endAt(beforeTimestamp - 1)
 
-      query.limitToLast(1).once 'child_added', (snapshot) ->
+      query.limitToLast(1).once 'value', (snapshot) ->
         handleQueryResult(snapshot, resolve, reject)
       , reject
 
@@ -72,7 +82,7 @@ Downloader =
       if afterTimestamp?
         query = query.startAt(afterTimestamp + 1)
 
-      query.limitToFirst(1).once 'child_added', (snapshot) ->
+      query.limitToFirst(1).once 'value', (snapshot) ->
         handleQueryResult(snapshot, resolve, reject)
       , reject
 

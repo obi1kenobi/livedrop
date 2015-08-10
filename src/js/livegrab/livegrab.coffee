@@ -31,15 +31,15 @@ handlePrivateKeyImport = () ->
 
 handleClickPrevious = () ->
   downloader.getNewest(currentTimestamp) \
-  .catch (err) ->
-    console.error 'Error getting the previous data:', err
-  .then(display)
+    .catch (err) ->
+      console.error 'Error getting the previous data:', err
+    .then(display)
 
 handleClickNext = () ->
   downloader.getOldest(currentTimestamp) \
-  .catch (err) ->
-    console.error 'Error getting the next data:', err
-  .then(display)
+    .catch (err) ->
+      console.error 'Error getting the next data:', err
+    .then(display)
 
 display = ({data, timestamp}) ->
   console.log 'Timestamp:', timestamp
