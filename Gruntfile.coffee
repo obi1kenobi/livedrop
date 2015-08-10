@@ -28,7 +28,8 @@ module.exports = (grunt) ->
     uglify: {}
 
 
-  finalCodeFiles = ['livedrop/livedrop.coffee']
+  finalCodeFiles = ['livedrop/livedrop.coffee',
+                    'livegrab/livegrab.coffee']
 
   for file in grunt.file.expand({cwd: codePath, matchBase: true}, finalCodeFiles)
     jsFile = file.replace('.coffee', '.js')

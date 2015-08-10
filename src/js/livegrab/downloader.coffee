@@ -26,7 +26,7 @@ join = (blocks) ->
 unpack = (data) ->
   {ciphertext, sessionKey, iv, additionalData, tagLength} = data
   result =
-    ciphertext: join(base64ToUint8Array(ciphertext))
+    ciphertext: base64ToUint8Array(join(ciphertext))
     sessionKey: base64ToUint8Array(sessionKey)
     iv: base64ToUint8Array(iv)
     timestamp: data.timestamp
@@ -35,6 +35,14 @@ unpack = (data) ->
     result.tagLength = tagLength
   return result
 
+handleQueryResult = (snapshot, resolve, reject) ->
+  value = snapshot.val()
+  {timestamp} = value
+  crypto.decrypt(unpack(value)) \
+    .catch(reject)
+    .then (data) ->
+      resolve({data: new Uint8Array(data), timestamp})
+
 Downloader =
   ###
   # Returns the newest data item that has a timestamp
@@ -42,15 +50,14 @@ Downloader =
   # If the parameter is not provided, returns the newest item found.
   ###
   getNewest: (beforeTimestamp) ->
+    console.log 'Starting query...'
     return new Promise (resolve, reject) ->
-      query = ref.orderByChild('date')
+      query = ref.orderByChild('timestamp')
       if beforeTimestamp?
         query = query.endAt(beforeTimestamp - 1)
 
       query.limitToLast(1).once 'child_added', (snapshot) ->
-        crypto.decrypt(unpack(snapshot)) \
-          .catch(reject)
-          .then(resolve)
+        handleQueryResult(snapshot, resolve, reject)
       , reject
 
   ###
@@ -59,15 +66,14 @@ Downloader =
   # If the parameter is not provided, returns the oldest item found.
   ###
   getOldest: (afterTimestamp) ->
+    console.log 'Starting query...'
     return new Promise (resolve, reject) ->
-      query = ref.orderByChild('date')
+      query = ref.orderByChild('timestamp')
       if afterTimestamp?
         query = query.startAt(afterTimestamp + 1)
 
       query.limitToFirst(1).once 'child_added', (snapshot) ->
-        crypto.decrypt(unpack(snapshot)) \
-          .catch(reject)
-          .then(resolve)
+        handleQueryResult(snapshot, resolve, reject)
       , reject
 
 

@@ -19,7 +19,7 @@ errorPrinter = (name, reject) ->
     console.error "Error in '#{name}':", err
     reject(err)
 
-testPrivateKey: (privateKey) ->
+testPrivateKey = (privateKey) ->
   {type, key, options} = config.pubkey
   extractable = false
   uses = ['encrypt']
@@ -78,7 +78,7 @@ Crypto =
       asymmetricOptions =
         name: config.pubkey.options.name
 
-      window.crypto.subtle.decrypt(options, savedPrivateKey, sessionKey) \
+      window.crypto.subtle.decrypt(asymmetricOptions, savedPrivateKey, sessionKey) \
         .catch(errorPrinter('session key decrypt', reject))
         .then (rawKey) ->
           symmetricOptions =

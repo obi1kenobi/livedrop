@@ -1,6 +1,8 @@
 {
   "rules": {
     "messages": {
+      ".read": true,
+      ".indexOn": ["timestamp"],
       "$pushid": {
         ".write": "!data.exists()",
         ".validate": "newData.hasChildren(['timestamp',
