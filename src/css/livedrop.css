@@ -1,0 +1,52 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 40rem;
+  min-height: 40rem;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+#master {
+  margin: auto;
+  width: 40rem;
+  height: 40rem;
+}
+
+#status {
+  padding: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 0.1em solid #000000;
+}
+
+#file {
+  margin: auto;
+  width: 40rem;
+}
+
+#file-input {
+  position: absolute;
+  left: 5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#file-send {
+  position: absolute;
+  width: 10%;
+  right: 5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

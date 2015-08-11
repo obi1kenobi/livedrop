@@ -5,10 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Livedrop</title>
+    <link rel="stylesheet" href="../css/livedrop.css">
   </head>
   <body>
-    <input id="file-input" type="file" accept="image/*" capture="camera">
-    <button id="file-submit">Submit</button>
+    <div id="master" class="container">
+      <div id="status">
+        Status: Ready.
+      </div>
+      <div id="file" class="container">
+        <input id="file-input" type="file" accept="image/*" capture="camera">
+        <button id="file-send">Send</button>
+      </div>
+    </div>
   </body>
   <script src="../js/livedrop/livedrop.js"></script>
 </html>
