@@ -1,0 +1,83 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 40rem;
+  min-height: 40rem;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+#master {
+  margin: auto;
+  width: 40rem;
+  height: 40rem;
+}
+
+#status {
+  padding: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: 0rem;
+  margin-right: 0rem;
+  border: 0.1em solid #000000;
+}
+
+#text-privkey {
+  position: relative;
+  width: 100%;
+  margin-left: 0rem;
+  margin-right: 0rem;
+  resize: none;
+}
+
+.btn-large {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  width: 10rem;
+}
+
+#btn-privatekey {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navbuttons {
+  margin: auto;
+  width: 25rem;
+}
+
+#btn-prev {
+  position: absolute;
+  left: 0px;
+}
+
+#btn-next {
+  position: absolute;
+  right: 0px;
+}
+
+#imgbox {
+  margin-top: 1em;
+  margin-bottom: 0em;
+  border: 0.05em solid #000000;
+  object-fit: contain;
+}
+
+.imgbox-bounded {
+  width: 100%;
+  height: 30rem;
+}

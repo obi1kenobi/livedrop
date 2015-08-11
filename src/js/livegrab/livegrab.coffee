@@ -4,6 +4,9 @@ $              = require('../../deps/jquery')
 
 currentTimestamp = null
 
+updateStatus = (text) ->
+  $('#status').text("Status: #{text}")
+
 ###
 Converts the given byte array to a base64 encoded string.
 ###
@@ -19,6 +22,7 @@ handlePrivateKeyImport = () ->
   try
     key = JSON.parse(keyjson)
   catch ex
+    updateStatus("Error! Couldn't parse private key JSON: #{ex}")
     console.error 'Error parsing private key JSON:', ex
     return
 
@@ -27,21 +31,27 @@ handlePrivateKeyImport = () ->
       console.error 'Error importing private key:', err
     .then () ->
       console.log 'Key imported successfully!'
+      updateStatus("Key import successful, downloading newest image...")
+      $('#livegrab-keyed').removeClass('hidden')
+      $('#livegrab-keyenter').addClass('hidden')
       handleClickPrevious()
 
 handleClickPrevious = () ->
   downloader.getNewest(currentTimestamp) \
     .catch (err) ->
+      updateStatus("No older images found.")
       console.error 'Error getting the previous data:', err
     .then(display)
 
 handleClickNext = () ->
   downloader.getOldest(currentTimestamp) \
     .catch (err) ->
+      updateStatus("No newer images found.")
       console.error 'Error getting the next data:', err
     .then(display)
 
 display = ({data, timestamp}) ->
+  updateStatus("Showing image with timestamp: #{timestamp}")
   console.log 'Timestamp:', timestamp
   currentTimestamp = timestamp
   base64 = arrayToBase64(data)
@@ -49,8 +59,14 @@ display = ({data, timestamp}) ->
 
 main = () ->
   $('#btn-privatekey').click(handlePrivateKeyImport)
-  $('#btn-prev').click(handleClickPrevious)
-  $('#btn-next').click(handleClickNext)
+  $('#btn-prev').click () ->
+    updateStatus("Downloading image...")
+    handleClickPrevious()
+  $('#btn-next').click () ->
+    updateStatus("Downloading image...")
+    handleClickNext()
+  $('#imgbox').click () ->
+    $('#imgbox').toggleClass('imgbox-bounded')
 
 
 $(document).ready(main)

@@ -4,19 +4,25 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Livedrop</title>
+    <title>Livegrab</title>
+    <link rel="stylesheet" href="../css/livegrab.css">
   </head>
   <body>
-    <div id="livegrab-keyenter">
-      <textarea id="text-privkey" rows="10" cols="70">
-        Enter your private key here!
-      </textarea>
-      <button id="btn-privatekey">Import key</button>
-    </div>
-    <div id="livegrab-keyed">
-      <image id="imgbox"></image>
-      <button id="btn-prev">Previous</button>
-      <button id="btn-next">Next</button>
+    <div id="master" class="container">
+      <div id="status">
+        Status: Ready.
+      </div>
+      <div id="livegrab-keyenter">
+        <textarea id="text-privkey" rows="20" placeholder="Enter your private key here!"></textarea>
+        <button id="btn-privatekey" class="btn-large">Import key</button>
+      </div>
+      <div id="livegrab-keyed" class="container hidden">
+        <image id="imgbox" class="imgbox-bounded"></image>
+        <div id="navbuttons" class="container">
+          <button id="btn-prev" class="btn-large">Previous</button>
+          <button id="btn-next" class="btn-large">Next</button>
+        </div>
+      </div>
     </div>
   </body>
   <script src="../js/livegrab/livegrab.js"></script>

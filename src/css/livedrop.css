@@ -16,6 +16,10 @@ body {
   width: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 #master {
   margin: auto;
   width: 40rem;
@@ -26,8 +30,8 @@ body {
   padding: 1em;
   margin-top: 2em;
   margin-bottom: 2em;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 0rem;
+  margin-right: 0rem;
   border: 0.1em solid #000000;
 }
 
@@ -39,7 +43,7 @@ body {
 #file-input {
   position: absolute;
   left: 5rem;
-  margin-left: 1rem;
+  margin-left: 0rem;
   margin-right: 1rem;
 }
 
@@ -48,5 +52,5 @@ body {
   width: 10%;
   right: 5rem;
   margin-left: 1rem;
-  margin-right: 1rem;
+  margin-right: 0rem;
 }
