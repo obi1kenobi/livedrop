@@ -24,7 +24,7 @@ html {
   border: 0.1rem solid #000000;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 41rem) {
   body {
     min-width: 40rem;
     min-height: 40rem;
@@ -52,7 +52,7 @@ html {
   }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 41rem) {
   #file-input {
     display: block;
     position: relative;
